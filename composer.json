@@ -1,7 +1,7 @@
 {
     "name": "mixerapi/cakephp-plugin-template",
     "description": "CakePHP skeleton plugin",
-    "type": "cakephp-plugin",
+    "type": "project",
     "license": "MIT",
     "keywords": ["cakephp"],
     "require": {
