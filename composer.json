@@ -21,11 +21,12 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "MixerApi\\Test\\": "tests/",
-            "MixerApi\\Test\\App\\": "tests/test_app/App/"
+            "MixerApi\\Test\\": "tests/"
         }
     },
     "scripts": {
+        "post-install-cmd": "App\\Console\\Installer::postInstall",
+        "post-create-project-cmd": "App\\Console\\Installer::postInstall",
         "check": [
             "@test",
             "@cs-check",
@@ -40,8 +41,7 @@
         "coverage": "phpunit --coverage-html coverage-reports/"
     },
     "support": {
-        "issues": "https://github.com/mixerapi/",
-        "source": "https://github.com/mixerapi/"
+        "source": "https://github.com/mixerapi/cakephp-plugin-template"
     },
     "authors": [
         {

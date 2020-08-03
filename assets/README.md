@@ -1,6 +1,6 @@
-# MixerApi CakePHP Plugin Template
+# MixerAPI {PLUGIN_NAME}
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/mixerapi/cakephp-plugin-template.svg?style=flat-square)](https://packagist.org/packages/mixerapi/cakephp-plugin-template)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/mixerapi/{PACKAGE_NAME}.svg?style=flat-square)](https://packagist.org/packages/mixerapi/{PACKAGE_NAME})
 <!--- [![Build Status]()]() --->
 <!--- [![Coverage Status]()]() --->
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.txt)
@@ -8,10 +8,32 @@
 [![CakePHP](https://img.shields.io/badge/cakephp-%3E%3D%204.0-red?logo=cakephp)](https://book.cakephp.org/4/en/index.html)
 [![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.2-8892BF.svg?logo=php)](https://php.net/)
 
-A skeleton for creating standalone plugins in CakePHP 4.x
-
-## Installation
+## Installation 
 
 ```bash
-composer create-project --prefer-dist mixerapi/cakephp-plugin-template
+composer require mixerapi/{PACKAGE_NAME}
+bin/cake plugin load MixerApi/{PLUGIN_NAME}
+```
+
+Alternatively after composer installing you can manually load the plugin in your Application:
+
+```php
+# src/Application.php
+public function bootstrap(): void
+{
+    // other logic...
+    $this->addPlugin('MixerApi/{PACKAGE_NAME}');
+}
+```
+
+## Unit Tests
+
+```bash
+vendor/bin/phpunit
+```
+
+## Code Standards
+
+```bash
+composer check
 ```
