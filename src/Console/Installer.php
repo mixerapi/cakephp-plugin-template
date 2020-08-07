@@ -31,8 +31,8 @@ class Installer
         $package = basename(dirname(dirname(__DIR__)));
         $name = Inflector::camelize($package);
 
-        self::readme($rootDir, $package, $name);
-        self::composer($package, $name);
+        self::readme($io, $rootDir, $package, $name);
+        self::composer($io, $package, $name);
 
         $class = 'Cake\Codeception\Console\Installer';
         if (class_exists($class)) {
@@ -40,27 +40,66 @@ class Installer
         }
     }
 
-    public static function readme($dir, $package, $name)
+    /**
+     * Copies README from assets, removes assets, and updates placeholder text
+     *
+     * @param \Composer\IO\IOInterface $io IO interface to write to console.
+     * @param string $dir
+     * @param string $package
+     * @param string $name
+     * @return void
+     */
+    public static function readme($io, string $dir, string $package, string $name): void
     {
         $readme = "$dir/assets/README.md";
 
         if (!file_exists($readme)) {
+            $io->write("Error encountered modifying README `$readme` does not exist");
+
             return;
         }
 
-        copy($readme, 'README.md');
-        unlink($readme);
+        if (!copy($readme, 'README.md')) {
+            $io->write("Unable to copy `$readme`, check permissions");
+        }
+
+        if (!unlink($readme)) {
+            $io->write("Unable to remove `$readme`, remove assets/ manually");
+        }
+
         rmdir("$dir/assets");
+
+        if ($package == 'plugin') {
+            return;
+        }
 
         $contents = file_get_contents('README.md');
         $contents = str_replace('{PLUGIN_NAME}', $name, $contents);
         $contents = str_replace('{PACKAGE}', $package, $contents);
 
-        file_put_contents('README.md', $contents);
+        if (!file_put_contents('README.md', $contents)) {
+            $io->write("Unable to update contents of your README, check permissions");
+
+            return;
+        }
+
+        $io->write("README updated");
     }
 
-    public static function composer($package, $name)
+    /**
+     * Update placeholder text in composer
+     *
+     * @param \Composer\IO\IOInterface $io IO interface to write to console.
+     * @param string $package
+     * @param string $name
+     * @return void
+     */
+    public static function composer($io, string $package, string $name): void
     {
+        if ($package == 'plugin') {
+            return;
+        }
+
         $pkg = 'mixerapi/' . $package;
         $ns = "MixerApi\\$name";
 
@@ -68,6 +107,8 @@ class Installer
         $contents = str_replace('mixerapi/plugin', $pkg, $contents);
         $contents = str_replace('MixerApi\\', $ns, $contents);
 
-        file_put_contents('composer.json', $contents);
+        if (!file_put_contents('composer.json', $contents)) {
+            $io->write("Unable to update contents of your composer.json, check permissions");
+        }
     }
 }
