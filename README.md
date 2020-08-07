@@ -11,6 +11,5 @@ A skeleton for creating standalone plugins in CakePHP 4.x
 ## Installation
 
 ```bash
-# mkdir my-plugin && cd my-plugin
-composer create-project --prefer-dist mixerapi/plugin
+composer create-project -s dev --prefer-dist mixerapi/plugin {plugin-name}
 ```
