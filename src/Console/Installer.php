@@ -27,7 +27,10 @@ class Installer
         $io = $event->getIO();
 
         $rootDir = dirname(dirname(__DIR__));
-        copy("$rootDir/assets/README.md", 'README.md');
+        $readme = "$rootDir/assets/README.md";
+        copy($readme, 'README.md');
+        unlink($readme);
+        rmdir("$rootDir/assets");
 
         $class = 'Cake\Codeception\Console\Installer';
         if (class_exists($class)) {
