@@ -1,5 +1,5 @@
 {
-    "name": "mixerapi/cakephp-plugin-template",
+    "name": "mixerapi/plugin",
     "description": "CakePHP skeleton plugin",
     "type": "project",
     "license": "MIT",
