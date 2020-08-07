@@ -102,13 +102,13 @@ class Installer
         }
 
         $pkg = 'mixerapi/' . $package;
-        $ns = "MixerApi\\\\$name\\\\";
-        $nsTest = "MixerApi\\\\$name\\\\Test\\\\";
+        $ns = '"MixerApi\\\\' . $name . '\\\\":';
+        $nsTest = '"MixerApi\\\\' . $name . '\\\\Test\\\\":';
 
         $contents = file_get_contents('composer.json');
         $contents = str_replace('mixerapi/plugin', $pkg, $contents);
-        $contents = str_replace('"MixerApi\\\\"', $ns, $contents);
-        $contents = str_replace('"MixerApi\\\\Test\\\\"', $ns, $contents);
+        $contents = str_replace('"MixerApi\\\\":', $ns, $contents);
+        $contents = str_replace('"MixerApi\\\\Test\\\\":', $nsTest, $contents);
 
         if (!file_put_contents('composer.json', $contents)) {
             $io->write("Unable to update contents of your composer.json, check permissions");
