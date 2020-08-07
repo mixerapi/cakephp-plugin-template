@@ -33,6 +33,7 @@ class Installer
 
         self::readme($io, $rootDir, $package, $name);
         self::composer($io, $package, $name);
+        self::plugin($io, $package, $name);
 
         $class = 'Cake\Codeception\Console\Installer';
         if (class_exists($class)) {
@@ -114,5 +115,33 @@ class Installer
         }
 
         $io->write("Updated composer.json with $pkg and $ns");
+    }
+
+    /**
+     * Update placeholder text in Plugin.php
+     *
+     * @param \Composer\IO\IOInterface $io IO interface to write to console.
+     * @param string $package
+     * @param string $name
+     * @return void
+     */
+    public static function plugin($io, string $package, string $name): void
+    {
+        if ($package == 'plugin') {
+            return;
+        }
+
+        $ns = "namespace MixerApi\\$name;";
+
+        $contents = file_get_contents('src/Plugin.php');
+        $contents = str_replace('namespace MixerApi;', $ns, $contents);
+
+        if (!file_put_contents('src/Plugin.php', $contents)) {
+            $io->write("Unable to update contents of your `src/Plugin.php`, check permissions");
+
+            return;
+        }
+
+        $io->write("Updated `src/Plugin.php` and $ns");
     }
 }
