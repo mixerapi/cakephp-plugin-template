@@ -1,4 +1,4 @@
-# MixerApi CakePHP Plugin Template
+# MixerApi Plugin Template
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/mixerapi/cakephp-plugin-template.svg?style=flat-square)](https://packagist.org/packages/mixerapi/cakephp-plugin-template)
 <!--- [![Build Status]()]() --->
@@ -14,5 +14,5 @@ A skeleton for creating standalone plugins in CakePHP 4.x
 
 ```bash
 # mkdir my-plugin && cd my-plugin
-composer create-project --prefer-dist mixerapi/cakephp-plugin-template
+composer create-project --prefer-dist mixerapi/plugin
 ```
