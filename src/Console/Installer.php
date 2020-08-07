@@ -28,85 +28,11 @@ class Installer
         $io = $event->getIO();
 
         $rootDir = dirname(dirname(__DIR__));
-
-        static::updateComposer($rootDir, $io);
-        static::updateReadme($rootDir, $io);
+        copy("$rootDir/assets/README.md", 'README.md');
 
         $class = 'Cake\Codeception\Console\Installer';
         if (class_exists($class)) {
             $class::customizeCodeceptionBinary($event);
         }
-    }
-
-    public static function updateComposer($dir, $appName, $packageName, $io)
-    {
-        $file = $dir . '/composer.json';
-        $content = file_get_contents($file);
-        $content = str_replace(
-            'mixerapi/cakephp-plugin-template',
-            "mixerapi/$packageName",
-            $content,
-            $count
-        );
-
-        $content = str_replace(
-            'CakePHP skeleton plugin',
-            "MixerApi plugin",
-            $content,
-            $count
-        );
-
-        $content = str_replace(
-            'MixerApi' . '/\\/',
-            'MixerApi' . '/\\/' . $appName . '/\\/',
-            $content,
-            $count
-        );
-
-        $content = str_replace(
-            'https://github.com/mixerapi/cakephp-plugin-template',
-            'https://github.com/mixerapi/' . $packageName,
-            $content,
-            $count
-        );
-
-        $result = file_put_contents($file, $content);
-        if ($result) {
-            $io->write('Updated ' . $file);
-
-            return;
-        }
-        $io->write('Unable to update ' . $file);
-    }
-
-    public static function updateReadme($dir, $pluginName, $packageName, $io)
-    {
-        $file = $dir . DS . 'README.md';
-        unlink($file);
-        copy($dir . DS . 'assets' . DS . 'README.md', $file);
-
-        $file = $dir . DS . 'README.md';
-        $content = file_get_contents($file);
-        $content = str_replace(
-            '{PLUGIN_NAME}',
-            "$pluginName",
-            $content,
-            $count
-        );
-
-        $content = str_replace(
-            '{PACKAGE_NAME}',
-            "$packageName",
-            $content,
-            $count
-        );
-
-        $result = file_put_contents($file, $content);
-        if ($result) {
-            $io->write('Updated ' . $file);
-
-            return;
-        }
-        $io->write('Unable to update ' . $file);
     }
 }
