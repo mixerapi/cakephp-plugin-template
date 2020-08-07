@@ -7,7 +7,6 @@ if (!defined('STDIN')) {
     define('STDIN', fopen('php://stdin', 'r'));
 }
 
-use Cake\Utility\Security;
 use Composer\Script\Event;
 
 /**
