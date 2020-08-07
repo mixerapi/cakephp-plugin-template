@@ -41,7 +41,7 @@
         "coverage": "phpunit --coverage-html coverage-reports/"
     },
     "support": {
-        "source": "https://github.com/mixerapi/cakephp-plugin-template"
+        "source": "https://github.com/mixerapi/plugin"
     },
     "authors": [
         {

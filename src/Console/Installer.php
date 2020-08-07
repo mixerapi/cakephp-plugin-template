@@ -8,6 +8,7 @@ if (!defined('STDIN')) {
 }
 
 use Composer\Script\Event;
+use Cake\Utility\Inflector;
 
 /**
  * Provides installation hooks for when this application is installed through
@@ -27,14 +28,46 @@ class Installer
         $io = $event->getIO();
 
         $rootDir = dirname(dirname(__DIR__));
-        $readme = "$rootDir/assets/README.md";
-        copy($readme, 'README.md');
-        unlink($readme);
-        rmdir("$rootDir/assets");
+        $package = basename(dirname(dirname(__DIR__)));
+        $name = Inflector::camelize($package);
+
+        self::readme($rootDir, $package, $name);
+        self::composer($package, $name);
 
         $class = 'Cake\Codeception\Console\Installer';
         if (class_exists($class)) {
             $class::customizeCodeceptionBinary($event);
         }
+    }
+
+    public static function readme($dir, $package, $name)
+    {
+        $readme = "$dir/assets/README.md";
+
+        if (!file_exists($readme)) {
+            return;
+        }
+
+        copy($readme, 'README.md');
+        unlink($readme);
+        rmdir("$dir/assets");
+
+        $contents = file_get_contents('README.md');
+        $contents = str_replace('{PLUGIN_NAME}', $name, $contents);
+        $contents = str_replace('{PACKAGE}', $package, $contents);
+
+        file_put_contents('README.md', $contents);
+    }
+
+    public static function composer($package, $name)
+    {
+        $pkg = 'mixerapi/' . $package;
+        $ns = "MixerApi\\$name";
+
+        $contents = file_get_contents('composer.json');
+        $contents = str_replace('mixerapi/plugin', $pkg, $contents);
+        $contents = str_replace('MixerApi\\', $ns, $contents);
+
+        file_put_contents('composer.json', $contents);
     }
 }
