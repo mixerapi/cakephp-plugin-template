@@ -6,6 +6,15 @@
 [![CakePHP](https://img.shields.io/badge/cakephp-%3E%3D%204.0-red?logo=cakephp)](https://book.cakephp.org/4/en/index.html)
 [![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.2-8892BF.svg?logo=php)](https://php.net/)
 <!--- [![Build Status]()]() [![Coverage Status]()]() --->
+
+## What's Next?
+
+1. Change `{PLUGIN_NAME}` in this file with your actual plugin name.
+2. Make similar updates `composer.json` including the autoload namespaces and post install scripts.
+3. Update the namespace in `src/Plugin.php`
+4. Remove this section.
+5. Start developing!
+
 ## Installation 
 
 ```bash
