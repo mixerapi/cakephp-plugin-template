@@ -29,7 +29,7 @@ class Installer
 
         $rootDir = dirname(dirname(__DIR__));
         $package = basename(dirname(dirname(__DIR__)));
-        $name = Inflector::camelize($package);
+        $name = trim(Inflector::camelize(str_replace('-', ' ', $package)));
 
         self::readme($io, $rootDir, $package, $name);
         self::composer($io, $package, $name);
@@ -83,7 +83,7 @@ class Installer
             return;
         }
 
-        $io->write("README updated");
+        $io->write("README updated with $package and $name");
     }
 
     /**
@@ -109,6 +109,10 @@ class Installer
 
         if (!file_put_contents('composer.json', $contents)) {
             $io->write("Unable to update contents of your composer.json, check permissions");
+
+            return;
         }
+
+        $io->write("Updated composer.json with $pkg and $ns");
     }
 }
