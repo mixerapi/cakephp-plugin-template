@@ -6,10 +6,17 @@
 [![CakePHP](https://img.shields.io/badge/cakephp-%3E%3D%204.0-red?logo=cakephp)](https://book.cakephp.org/4/en/index.html)
 [![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.2-8892BF.svg?logo=php)](https://php.net/)
 
-A skeleton for creating standalone plugins in CakePHP 4.x
+A skeleton for creating standalone plugins in CakePHP `4.x`. While this plugin is geared towards building MixerAPI 
+project plugins, you can use this for your own projects or fork and change what you need.
 
-## Installation
+## Usage
 
 ```bash
 composer create-project -s dev --prefer-dist mixerapi/plugin {plugin-name}
 ```
+
+## Features
+
+- Creates a MixerAPI themed `README.md`
+- Defines PHPStan, PHPMD, and PHPCS rules
+- Updates namespaces in `src/Plugin.php` and in `composer.json`
