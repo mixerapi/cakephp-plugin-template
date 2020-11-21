@@ -106,6 +106,7 @@ class Installer
         $nsTest = '"MixerApi\\\\' . $name . '\\\\Test\\\\":';
 
         $contents = file_get_contents('composer.json');
+        $contents = str_replace('"type": "project",', '"type": "cakephp-plugin",', $contents);
         $contents = str_replace('mixerapi/plugin', $pkg, $contents);
         $contents = str_replace('"MixerApi\\\\":', $ns, $contents);
         $contents = str_replace('"MixerApi\\\\Test\\\\":', $nsTest, $contents);
