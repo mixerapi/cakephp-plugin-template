@@ -25,14 +25,9 @@ public function bootstrap(): void
 }
 ```
 
-## Unit Tests
+## Code Tests/Analysis and Fixer
 
-```bash
-vendor/bin/phpunit
-```
-
-## Code Standards
-
-```bash
+```console
 composer check
+composer cs-fix
 ```
